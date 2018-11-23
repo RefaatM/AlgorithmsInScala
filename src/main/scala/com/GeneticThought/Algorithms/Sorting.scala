@@ -3,11 +3,10 @@ package com.GeneticThought.Algorithms
 import scala.math
 
 class Sorting[T] {
- /* type OrderedView[T] = T=> Ordered[T]
-  def compareGreater[T: OrderedView](o1: T, o2: T): Boolean = {
-    o1 > o2
-  }
-*/
+ /*
+     From Introduction to Algorithms 2nd Edition  ISBN 0-262-032937-7
+     section 2.1 page 17
+  */
   def insertSort(array: Array[T], greaterThan: (T,T) => Boolean): Unit = {
     for (j <- 1 to array.size - 1) {
       val key = array(j)
