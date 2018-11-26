@@ -8,7 +8,7 @@ class Sorting[T] {
      section 2.1 page 17
   */
   def insertSort(array: Array[T], greaterThan: (T,T) => Boolean): Unit = {
-    for (j <- 1 to array.size - 1) {
+    for (j <- 2 to array.size - 1) {
       val key = array(j)
       var i = j - 1
       while (i >= 0 && greaterThan(array(i), key)) {
@@ -18,10 +18,41 @@ class Sorting[T] {
       array(i + 1) = key
     }
   }
+
+  def swap(array: Array[T], i: Int, j: Int):Unit = { val t = array(i); array(i) = array(j); array(j) = t}
+
+
+  def selectionSort(array: Array[T], lesserThan: (T,T) => Boolean): Unit = {
+    for (i <- 1 to array.size - 1) {
+      var min = i
+      for( j<- i + 1 to array.size - 1){
+         if( lesserThan(array(j),array(min))) min = j
+       }
+      swap(array,min,i)
+      }
+  }
+
+  def bubbleSort(array: Array[T], greaterThan: (T,T) => Boolean): Unit = {
+     for( i <- array.size-1 to 1 by -1 ){
+       for( j <- 2 to i){
+         if(greaterThan(array(j-1), array(j))) swap(array,j-1,j)
+       }
+     }
+  }
+
 }
 
 object Sorting {
+     val longSortingAlgorithms: Sorting[Long] = new Sorting[Long]()
+     val intSortingAlgorithms: Sorting[Int] = new Sorting[Int]()
+     val stringSortingAlgorithms: Sorting[String] = new Sorting[String]()
 
-   def insertSortLong(array:Array[Long]): Unit = (new Sorting[Long]()).insertSort(array = array,(a,b) => a >b)
+   def insertSortLong(array:Array[Long]): Unit = longSortingAlgorithms.insertSort(array = array,(a,b) => a >b)
+   def insertSortInt(array:Array[Int]): Unit = intSortingAlgorithms.insertSort(array = array,(a,b) => a >b)
+   def insertSortString(array:Array[String]): Unit = stringSortingAlgorithms.insertSort(array = array,(a,b) => a > b)
+
+   def selectionSortLong(array:Array[Long]): Unit =longSortingAlgorithms.selectionSort(array = array,(a,b) => a < b)
+
+   def  bubbleSortLong(array:Array[Long]): Unit = longSortingAlgorithms.bubbleSort(array = array,(a,b) => a > b)
 
 }
