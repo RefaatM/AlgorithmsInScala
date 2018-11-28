@@ -1,6 +1,5 @@
 package com.GeneticThought.Algorithms
-
-import scala.math
+import scala.collection.mutable.ArrayBuffer
 
 class Sorting[T] {
  /*
@@ -40,6 +39,21 @@ class Sorting[T] {
      }
   }
 
+  //Todo: need to imporve the algorithm coding
+  def quickSort(array: Array[T],greaterThan: (T,T) => Boolean,lesserThan: (T,T) => Boolean, equalTo: (T,T) => Boolean):Array[T] = {
+    if (array.length > 2) {
+      val p = array(array.length / 2)
+      val partR = array filter (greaterThan(p, _))
+      val partL = array filter (lesserThan(p, _))
+      val partM = array filter (equalTo(p, _))
+      val sorted = quickSort(partR, greaterThan, lesserThan, equalTo).union(partM.union(quickSort(partL, greaterThan, lesserThan, equalTo)))
+      sorted.copyToArray(array)
+
+    }
+    array
+  }
+
+
 }
 
 object Sorting {
@@ -54,5 +68,10 @@ object Sorting {
    def selectionSortLong(array:Array[Long]): Unit =longSortingAlgorithms.selectionSort(array = array,(a,b) => a < b)
 
    def  bubbleSortLong(array:Array[Long]): Unit = longSortingAlgorithms.bubbleSort(array = array,(a,b) => a > b)
+
+   def  quickSortLong(array:Array[Long]): Array[Long] = longSortingAlgorithms.quickSort(array = array,(a,b) => a > b,(a,b) => a < b,(a,b) => a == b)
+
+  def  liberarySortLong(array:Array[Long]):Unit =  array.sortWith((a,b)=> a<b)
+
 
 }
