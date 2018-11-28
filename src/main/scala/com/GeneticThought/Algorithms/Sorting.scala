@@ -39,7 +39,7 @@ class Sorting[T] {
      }
   }
 
-  //Todo: need to imporve the algorithm coding
+  //Todo: need to improve the algorithm coding
   def quickSort(array: Array[T],greaterThan: (T,T) => Boolean,lesserThan: (T,T) => Boolean, equalTo: (T,T) => Boolean):Array[T] = {
     if (array.length > 2) {
       val p = array(array.length / 2)
