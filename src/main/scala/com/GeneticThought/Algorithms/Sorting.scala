@@ -48,11 +48,28 @@ class Sorting[T] {
       val partM = array filter (equalTo(p, _))
       val sorted = quickSort(partR, greaterThan, lesserThan, equalTo).union(partM.union(quickSort(partL, greaterThan, lesserThan, equalTo)))
       sorted.copyToArray(array)
-
     }
     array
   }
 
+  // still liberary stort algorithm is more optimized
+  def quickSort2(array: Array[T],lesserThan: (T,T) => Boolean):Array[T] = {
+
+    if (array.length > 2) {
+      val p = array(array.length / 2)
+      val (partR,partL) = array partition (lesserThan(p, _))
+      // sometimes all the elements in the array are equal
+      if(partL.length == array.length || partR.length == array.length) {
+
+      }
+      else
+      {
+        val sorted = quickSort2(partR, lesserThan).union(quickSort2(partL, lesserThan))
+        sorted.copyToArray(array)
+      }
+    }
+    array
+  }
 
 }
 
@@ -69,7 +86,7 @@ object Sorting {
 
    def  bubbleSortLong(array:Array[Long]): Unit = longSortingAlgorithms.bubbleSort(array = array,(a,b) => a > b)
 
-   def  quickSortLong(array:Array[Long]): Array[Long] = longSortingAlgorithms.quickSort(array = array,(a,b) => a > b,(a,b) => a < b,(a,b) => a == b)
+   def  quickSortLong(array:Array[Long]):Unit =  longSortingAlgorithms.quickSort2(array = array,(a,b) => a < b) //longSortingAlgorithms.quickSort(array = array,(a,b) => a > b,(a,b) => a < b,(a,b) => a == b)
 
   def  liberarySortLong(array:Array[Long]):Unit =  array.sortWith((a,b)=> a<b)
 
